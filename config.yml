@@ -1,5 +1,5 @@
 SourceDir: ./Assembly/src
-OutputDir: ./App/bin
+OutputDir: ./App/src
 IncludeDirs:
   - ./Assembly/src
-IntBins: ./App/bin-int
+IntBins: ./App/src/bin-int

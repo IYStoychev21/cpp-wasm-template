@@ -1,6 +1,8 @@
 #include <iostream>
+#include <emscripten.h>
 
-int main () 
-{
-    std::cout << "Hello World from CPP!" << std::endl;
+EMSCRIPTEN_KEEPALIVE
+void helloWorld()
+{ 
+    std::cout << "Hello from CPP" << std::endl;
 }

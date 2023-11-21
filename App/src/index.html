@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-  <h1>Hello World!</h1>  
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
 
-  <script>
-    console.log("Hello World from JS")
-  </script>
-</body>
+    <body>
+      <h1>Hello World!</h1>  
+
+      <script>
+        var exports = null
+
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), {
+            module: {},
+            env: {
+                memory: new WebAssembly.Memory({ initial: 256 }),
+            }
+        }).then(
+            (obj) => { exports = obj.instance.exports }
+        )
+        
+        console.log("Hello World from JS")
+        exports.helloWorld()
+      </script>
+
+    </body>
 </html>
