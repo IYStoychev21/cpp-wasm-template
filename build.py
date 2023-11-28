@@ -32,17 +32,15 @@ def load_objs(int_path):
 
     return glob.glob(f"{int_path}/**.o", recursive = True)
 
-def link_to_wasm(objs, output_dir):
+def link_to_wasm(objs, output_dir, name, mode):
     print("-------------- LINKING OBJ FILES --------------")
 
     obj = " ".join(objs)
-    subprocess.run(f"emcc -O1 {obj} -o {output_dir}/main.wasm --no-entry -s WASM=1", shell=True)
 
-def clean_up(output_dir): 
-    print("-------------- DELETING JS FILE --------------")
-
-    new_dir = output_dir.replace("/", "\\")
-    subprocess.run(f"del {new_dir}\\main.js", shell=True)
+    if mode == "Release":
+        subprocess.run(f"emcc -O3 {obj} -o {output_dir}/{name}.wasm --no-entry -s WASM=1", shell=True)
+    else:
+        subprocess.run(f"emcc -O1 {obj} -o {output_dir}/{name}.wasm --no-entry -s WASM=1", shell=True)
 
 def main():
     props = load(sys.argv[1])
@@ -50,9 +48,7 @@ def main():
 
     compile_to_objs(src_files, props["IncludeDirs"], props["IntBins"])
     objs = load_objs(props["IntBins"])
-    link_to_wasm(objs, props["OutputDir"])
-
-    clean_up(props["OutputDir"])
+    link_to_wasm(objs, props["OutputDir"], props["OutputFileName"], props["BuildMode"])
 
 if __name__ == '__main__':
     main()

@@ -3,3 +3,5 @@ OutputDir: ./App/src
 IncludeDirs:
   - ./Assembly/src
 IntBins: ./App/src/bin-int
+OutputFileName: main
+BuildMode: Debug
