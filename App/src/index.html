@@ -8,21 +8,20 @@
 
     <body>
       <h1>Hello World!</h1>  
+      <button>Click Me!!!</button>
 
       <script>
-        var exports = null
+        let exports;
 
-        WebAssembly.instantiateStreaming(fetch("main.wasm"), {
-            module: {},
-            env: {
-                memory: new WebAssembly.Memory({ initial: 256 }),
-            }
-        }).then(
-            (obj) => { exports = obj.instance.exports }
-        )
-        
-        console.log("Hello World from JS")
-        exports.helloWorld()
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), {})
+        .then((res) => {
+            exports = res.instance.exports;
+          })
+
+          const button = document.querySelector('button');
+          button.addEventListener('click', () => {
+            alert(exports.add(1, 2));
+          });
       </script>
 
     </body>

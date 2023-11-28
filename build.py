@@ -36,7 +36,7 @@ def link_to_wasm(objs, output_dir):
     print("-------------- LINKING OBJ FILES --------------")
 
     obj = " ".join(objs)
-    subprocess.run(f"emcc {obj} -o {output_dir}/main.js", shell=True)
+    subprocess.run(f"emcc -O1 {obj} -o {output_dir}/main.wasm --no-entry -s WASM=1", shell=True)
 
 def clean_up(output_dir): 
     print("-------------- DELETING JS FILE --------------")

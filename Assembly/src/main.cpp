@@ -1,8 +1,10 @@
-#include <iostream>
 #include <emscripten.h>
 
-EMSCRIPTEN_KEEPALIVE
-void helloWorld()
-{ 
-    std::cout << "Hello from CPP" << std::endl;
+extern "C" 
+{
+    EMSCRIPTEN_KEEPALIVE
+    int add(int a, int b)
+    {
+        return a + b;
+    }
 }
